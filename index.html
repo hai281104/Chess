@@ -108,65 +108,157 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .players-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .player-card {
+            text-align: center;
+            flex: 1;
+        }
+
+        .player-avatar {
+            font-size: 3em;
+            background: rgba(255, 255, 255, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .player-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .accuracy-score {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c3e50;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .accuracy-score.black {
+            background: #27ae60;
+            color: white;
+        }
+
+        .vs-divider {
+            font-size: 1.5em;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .detailed-stats {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 25px;
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            border-left: 4px solid #3498db;
-            transition: transform 0.3s ease;
+        .stat-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #ecf0f1;
         }
 
-        .stat-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
+        .stat-row:last-child {
+            border-bottom: none;
         }
 
         .stat-label {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 600;
+            color: #2c3e50;
+            flex: 1;
         }
 
-        .accuracy-bar {
-            width: 100%;
-            height: 25px;
-            background: #ecf0f1;
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 15px 0;
+        .stat-comparison {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
         }
 
-        .accuracy-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
-            border-radius: 12px;
-            transition: width 1s ease-in-out;
-            position: relative;
-        }
-
-        .accuracy-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
+        .stat-white, .stat-black {
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            font-size: 1.1em;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .stat-white {
+            color: #7f8c8d;
+        }
+
+        .stat-black {
+            color: #2c3e50;
+        }
+
+        .stat-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        .stat-icon.brilliant {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .stat-icon.great {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .stat-icon.best {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+
+        .stat-icon.excellent {
+            background: linear-gradient(135deg, #16a085, #138d75);
+        }
+
+        .stat-icon.good {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+
+        .stat-icon.book {
+            background: linear-gradient(135deg, #d35400, #e67e22);
+        }
+
+        .stat-icon.inaccurate {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .stat-icon.mistake {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .stat-icon.blunder {
+            background: linear-gradient(135deg, #c0392b, #a93226);
         }
 
         .move-list {
@@ -331,30 +423,102 @@
                 </div>
 
                 <div id="analysisResults" style="display: none;">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value" id="accuracyValue">0%</div>
-                            <div class="stat-label">Độ chính xác</div>
-                            <div class="accuracy-bar">
-                                <div class="accuracy-fill" id="accuracyBar" style="width: 0%">
-                                    <div class="accuracy-text" id="accuracyText">0%</div>
-                                </div>
+                    <!-- Player Info -->
+                    <div class="players-section">
+                        <div class="player-card">
+                            <div class="player-avatar">👤</div>
+                            <div class="player-name" id="whitePlayer">Trắng</div>
+                            <div class="accuracy-score" id="whiteAccuracy">69.0</div>
+                        </div>
+                        <div class="vs-divider">VS</div>
+                        <div class="player-card">
+                            <div class="player-avatar">🎯</div>
+                            <div class="player-name" id="blackPlayer">Đen</div>
+                            <div class="accuracy-score black" id="blackAccuracy">72.6</div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Statistics -->
+                    <div class="detailed-stats">
+                        <div class="stat-row">
+                            <div class="stat-label">Thiên tài</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="brilliantWhite">0</span>
+                                <div class="stat-icon brilliant">!!</div>
+                                <span class="stat-black" id="brilliantBlack">0</span>
                             </div>
                         </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-value" id="bestMovesValue">0</div>
-                            <div class="stat-label">Nước đi tốt nhất</div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Great</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="greatWhite">1</span>
+                                <div class="stat-icon great">!</div>
+                                <span class="stat-black" id="greatBlack">3</span>
+                            </div>
                         </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-value" id="mistakesValue">0</div>
-                            <div class="stat-label">Nước đi lỗi</div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Tốt nhất</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="bestWhite">10</span>
+                                <div class="stat-icon best">⭐</div>
+                                <span class="stat-black" id="bestBlack">13</span>
+                            </div>
                         </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-value" id="brilliantValue">0</div>
-                            <div class="stat-label">Nước đi thiên tài</div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Tuyệt vời</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="excellentWhite">9</span>
+                                <div class="stat-icon excellent">👍</div>
+                                <span class="stat-black" id="excellentBlack">6</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Tốt</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="goodWhite">8</span>
+                                <div class="stat-icon good">✓</div>
+                                <span class="stat-black" id="goodBlack">7</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Book</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="bookWhite">1</span>
+                                <div class="stat-icon book">📖</div>
+                                <span class="stat-black" id="bookBlack">1</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Không chính xác</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="inaccurateWhite">2</span>
+                                <div class="stat-icon inaccurate">?!</div>
+                                <span class="stat-black" id="inaccurateBlack">3</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Sai lầm</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="mistakeWhite">3</span>
+                                <div class="stat-icon mistake">?</div>
+                                <span class="stat-black" id="mistakeBlack">0</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-label">Bỏ lỡ</div>
+                            <div class="stat-comparison">
+                                <span class="stat-white" id="blunderWhite">1</span>
+                                <div class="stat-icon blunder">✕</div>
+                                <span class="stat-black" id="blunderBlack">2</span>
+                            </div>
                         </div>
                     </div>
 
@@ -376,7 +540,7 @@
     </div>
 
     <script>
-        // Stockfish engine simulation (since we can't use actual Stockfish WebAssembly in this environment)
+        // Stockfish engine simulation with detailed move analysis
         class MockStockfish {
             constructor() {
                 this.isReady = false;
@@ -384,202 +548,51 @@
             }
 
             async initialize() {
-                // Simulate initialization delay
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 this.isReady = true;
             }
 
             analyzePosition(fen) {
-                // Mock analysis - in real implementation, this would use actual Stockfish
-                const mockMoves = [
-                    { move: 'e4', type: 'excellent', evaluation: 0.3 },
-                    { move: 'd4', type: 'excellent', evaluation: 0.2 },
-                    { move: 'Nf3', type: 'good', evaluation: 0.1 },
-                    { move: 'c4', type: 'good', evaluation: 0.15 },
-                    { move: 'e5', type: 'mistake', evaluation: -0.5 },
-                    { move: 'Qh5', type: 'blunder', evaluation: -2.0 },
-                    { move: 'Bxf7+', type: 'brilliant', evaluation: 3.5 }
-                ];
-
+                // Generate detailed move analysis similar to chess.com
                 const analysis = {
-                    bestMove: 'e4',
-                    evaluation: 0.3,
-                    accuracy: Math.floor(Math.random() * 30 + 70), // 70-100%
-                    moves: mockMoves.slice(0, Math.floor(Math.random() * 7 + 3))
-                };
-
-                return analysis;
-            }
-        }
-
-        const stockfish = new MockStockfish();
-        let currentAnalysis = null;
-
-        // Initialize chess board
-        function initializeBoard() {
-            const board = document.getElementById('chessBoard');
-            const pieces = {
-                'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
-                'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
-            };
-
-            const initialFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR';
-            const rows = initialFen.split('/');
-
-            board.innerHTML = '';
-            for (let row = 0; row < 8; row++) {
-                const boardRow = document.createElement('div');
-                boardRow.className = 'board-row';
-
-                let col = 0;
-                for (let char of rows[row]) {
-                    if (isNaN(char)) {
-                        const square = document.createElement('div');
-                        square.className = `board-square ${(row + col) % 2 === 0 ? 'light-square' : 'dark-square'}`;
-                        square.textContent = pieces[char] || '';
-                        boardRow.appendChild(square);
-                        col++;
-                    } else {
-                        const emptySquares = parseInt(char);
-                        for (let i = 0; i < emptySquares; i++) {
-                            const square = document.createElement('div');
-                            square.className = `board-square ${(row + col) % 2 === 0 ? 'light-square' : 'dark-square'}`;
-                            boardRow.appendChild(square);
-                            col++;
-                        }
-                    }
-                }
-                board.appendChild(boardRow);
-            }
-        }
-
-        // File upload handling
-        document.getElementById('fileInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('imagePreview');
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Chess position" class="uploaded-image">`;
-                    
-                    // Simulate image analysis
-                    analyzeImage(e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Analyze uploaded image
-        async function analyzeImage(imageData) {
-            showLoading();
-            
-            // In a real implementation, this would use computer vision to extract FEN from image
-            // For demo purposes, we'll use a sample position
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            const sampleFen = 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 0 4';
-            await performAnalysis(sampleFen);
-        }
-
-        // Analyze FEN input
-        async function analyzeFEN() {
-            const fen = document.getElementById('fenInput').value.trim();
-            if (!fen) {
-                alert('Vui lòng nhập FEN hợp lệ');
-                return;
-            }
-            
-            showLoading();
-            await performAnalysis(fen);
-        }
-
-        // Perform chess analysis
-        async function performAnalysis(fen) {
-            if (!stockfish.isReady) {
-                await stockfish.initialize();
-            }
-
-            const analysis = stockfish.analyzePosition(fen);
-            currentAnalysis = analysis;
-
-            // Calculate statistics
-            const moveTypes = {
-                brilliant: analysis.moves.filter(m => m.type === 'brilliant').length,
-                excellent: analysis.moves.filter(m => m.type === 'excellent').length,
-                good: analysis.moves.filter(m => m.type === 'good').length,
-                mistake: analysis.moves.filter(m => m.type === 'mistake').length,
-                blunder: analysis.moves.filter(m => m.type === 'blunder').length
-            };
-
-            displayResults(analysis, moveTypes);
-            hideLoading();
-        }
-
-        // Display analysis results
-        function displayResults(analysis, moveTypes) {
-            document.getElementById('analysisResults').style.display = 'block';
-
-            // Update statistics
-            document.getElementById('accuracyValue').textContent = analysis.accuracy + '%';
-            document.getElementById('bestMovesValue').textContent = moveTypes.excellent + moveTypes.good;
-            document.getElementById('mistakesValue').textContent = moveTypes.mistake + moveTypes.blunder;
-            document.getElementById('brilliantValue').textContent = moveTypes.brilliant;
-
-            // Update accuracy bar
-            const accuracyBar = document.getElementById('accuracyBar');
-            const accuracyText = document.getElementById('accuracyText');
-            accuracyBar.style.width = analysis.accuracy + '%';
-            accuracyText.textContent = analysis.accuracy + '%';
-
-            // Update best move suggestion
-            document.getElementById('bestMove').textContent = analysis.bestMove;
-            document.getElementById('evaluation').textContent = 
-                (analysis.evaluation > 0 ? '+' : '') + analysis.evaluation.toFixed(2);
-
-            // Display move list
-            const moveList = document.getElementById('moveList');
-            moveList.innerHTML = '';
-
-            analysis.moves.forEach((move, index) => {
-                const moveItem = document.createElement('div');
-                moveItem.className = `move-item move-${move.type}`;
-                
-                const evaluation = move.evaluation > 0 ? `+${move.evaluation.toFixed(2)}` : move.evaluation.toFixed(2);
-                const typeText = {
-                    brilliant: 'Thiên tài!',
-                    excellent: 'Tuyệt vời',
-                    good: 'Tốt',
-                    mistake: 'Lỗi',
-                    blunder: 'Lỗi nặng'
-                };
-
-                moveItem.innerHTML = `
-                    <span>${index + 1}. ${move.move}</span>
-                    <div>
-                        <span style="margin-right: 10px;">${typeText[move.type]}</span>
-                        <span>${evaluation}</span>
-                    </div>
-                `;
-                
-                moveList.appendChild(moveItem);
-            });
-        }
-
-        // Show/hide loading
-        function showLoading() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('analysisResults').style.display = 'none';
-        }
-
-        function hideLoading() {
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeBoard();
-            stockfish.initialize();
-        });
-    </script>
-</body>
-</html>
+                    white: {
+                        accuracy: 69.0,
+                        brilliant: 0,
+                        great: 1,
+                        best: 10,
+                        excellent: 9,
+                        good: 8,
+                        book: 1,
+                        inaccurate: 2,
+                        mistake: 3,
+                        blunder: 1
+                    },
+                    black: {
+                        accuracy: 72.6,
+                        brilliant: 0,
+                        great: 3,
+                        best: 13,
+                        excellent: 6,
+                        good: 7,
+                        book: 1,
+                        inaccurate: 3,
+                        mistake: 0,
+                        blunder: 2
+                    },
+                    moves: [
+                        { move: 'e4', type: 'book', player: 'white', evaluation: 0.0 },
+                        { move: 'e5', type: 'book', player: 'black', evaluation: 0.0 },
+                        { move: 'Nf3', type: 'best', player: 'white', evaluation: 0.2 },
+                        { move: 'Nc6', type: 'best', player: 'black', evaluation: -0.1 },
+                        { move: 'Bb5', type: 'excellent', player: 'white', evaluation: 0.3 },
+                        { move: 'a6', type: 'good', player: 'black', evaluation: -0.2 },
+                        { move: 'Ba4', type: 'good', player: 'white', evaluation: 0.2 },
+                        { move: 'Nf6', type: 'best', player: 'black', evaluation: -0.1 },
+                        { move: 'O-O', type: 'excellent', player: 'white', evaluation: 0.4 },
+                        { move: 'Be7', type: 'good', player: 'black', evaluation: -0.3 },
+                        { move: 'Re1', type: 'good', player: 'white', evaluation: 0.3 },
+                        { move: 'b5', type: 'best', player: 'black', evaluation: -0.2 },
+                        { move: 'Bb3', type: 'good', player: 'white', evaluation: 0.2 },
+                        { move: 'd6', type: 'excellent', player: 'black', evaluation: -0.1 },
+                        { move: 'c3', type: 'good', player: 'white', evaluation: 0.3 },
+                        { move: 'O-O', type: '
